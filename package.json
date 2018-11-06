@@ -1,0 +1,20 @@
+{
+  "name": "csv",
+  "version": "1.0.0",
+  "description": "csv.stringify, csv.parse",
+  "main": "csv.js",
+  "scripts": {
+    "start": "node index",
+    "lint": "eslint .",
+    "test": "npm start"
+  },
+  "keywords": [],
+  "author": "jobscale <jobscale@jsx.jp>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
