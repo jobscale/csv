@@ -27,5 +27,5 @@ main();
 
 ### Run
 ```bash
-NODE_PATH=. node example.js
+npm start
 ```
