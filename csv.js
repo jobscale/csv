@@ -1,12 +1,17 @@
-const EOL = '\n';
 class Csv {
-  static async parse(str) {
-    return Csv.lines(Csv.columns(str));
+  constructor() {
+    this.EOL = '\n';
   }
-  static isEol(str) {
+
+  async parse(str) {
+    return this.lines(this.columns(str));
+  }
+
+  isEol(str) {
     return ['\r\n', '\n', '\r'].indexOf(str) !== -1;
   }
-  static lines(all) {
+
+  lines(all) {
     const data = {
       lines: [],
       line: [],
@@ -15,19 +20,20 @@ class Csv {
       data.lines.push(data.line);
       data.line = [];
     };
-    all.forEach(str => Csv.isEol(str) ? next() : data.line.push(Csv.generate(str)));
+    all.forEach(str => this.isEol(str) ? next() : data.line.push(this.generate(str)));
     if (data.line.length) next();
     return data.lines;
   }
-  static columns(line) {
+
+  columns(line) {
     const columns = [];
     let empty = true;
     const token = t => {
-      if (t === ',' || Csv.isEol(t)) {
+      if (t === ',' || this.isEol(t)) {
         if (empty) {
           columns.push('');
         }
-        if (Csv.isEol(t)) columns.push(t);
+        if (this.isEol(t)) columns.push(t);
         empty = true;
         return;
       }
@@ -38,24 +44,29 @@ class Csv {
     if (empty) columns.push('');
     return columns;
   }
-  static generate(column) {
+
+  generate(column) {
     const num = parseInt(column, 10);
     return num.toString() === column ? num
       : (c => (c.match(/"/) ? c.replace(/^"/, '').replace(/"$/, '') : c)
       .replace(/""/g, '"'))(column);
   }
-  static async stringify(array) {
-    return array.map(Csv.joinRow).join(EOL);
+
+  async stringify(array) {
+    return array.map(row => this.joinRow(row)).join(this.EOL);
   }
-  static joinRow(row) {
-    return row.map(Csv.escape).join(',');
+
+  joinRow(row) {
+    return row.map(x => this.escape(x)).join(',');
   }
-  static escape(x) {
+
+  escape(x) {
     const isEsc = () => x.match(/"/) || x.match(/,/) || x.match(/\n/) || x.match(/\r/);
     return typeof x === 'number' ? x
       : (() => isEsc() ? `"${x.replace(/"/g, '""')}"` : x)();
   }
 }
+
 module.exports = {
-  Csv,
+  Csv: new Csv(),
 };
