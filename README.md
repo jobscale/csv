@@ -1,31 +1,38 @@
-### Csv.stringify
+# @jobscale/csv
 
-@param [[]]
+### csv.stringify
 
-### Csv.parse
+`@param [[]]`
 
-@param string
+### csv.parse
 
-#### Setup
+`@param string`
+
+#### Installation
+
 ```bash
-git clone https://github.com/jobscale/csv.git
+npm i @jobscale/csv
 ```
 
-#### Example
-```nodejs
-const { csv } = require('.');
+#### Examples
+
+csv.js
+
+```javascript
+const { csv } = require('@jobscale/csv');
 
 const logger = console;
 const main = () => {
-  Csv.stringify([['a', 1, 2, 3, 4]])
+  csv.stringify([['a', 1, 2, 3, 4]])
   .then(logger.info);
-  Csv.parse('a,1,2,3,4')
+  csv.parse('a,1,2,3,4')
   .then(logger.info);
 };
 main();
 ```
 
 ### Run
+
 ```bash
-npm start
+node csv
 ```
