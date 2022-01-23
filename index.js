@@ -1,6 +1,7 @@
 class Csv {
-  constructor() {
-    this.EOL = '\n';
+  constructor(options) {
+    this.delimiter = options && options.delimiter ? options.delimiter : ',';
+    this.EOL = options && options.eol ? options.eol : '\n';
   }
 
   async parse(str) {
@@ -13,7 +14,6 @@ class Csv {
 
   isEmpty(obj) {
     return [
-      JSON.stringify([]),
       JSON.stringify(['']),
     ].indexOf(JSON.stringify(obj)) !== -1;
   }
@@ -28,7 +28,7 @@ class Csv {
       data.line = [];
     };
     all.forEach(str => this.isEol(str) ? next() : data.line.push(this.generate(str)));
-    if (data.line.length) next();
+    next();
     return data.lines;
   }
 
@@ -38,7 +38,7 @@ class Csv {
       empty: true,
     };
     const token = t => {
-      if (t !== ',' && !this.isEol(t)) {
+      if (t !== this.delimiter && !this.isEol(t)) {
         data.columns.push(t);
         data.empty = false;
         return;
@@ -47,9 +47,10 @@ class Csv {
         data.columns.push('');
       }
       if (this.isEol(t)) data.columns.push(t);
-      else data.empty = true;
+      data.empty = true;
     };
-    line.replace(/,|\r?\n|[^,"\r\n]+|"(?:[^"]|"")*"/g, token);
+    const regexp = new RegExp(`${this.delimiter}|\r?\n|[^${this.delimiter}"\r\n]+|"(?:[^"]|"")*"`, 'g');
+    line.replace(regexp, token);
     if (data.empty) data.columns.push('');
     return data.columns;
   }
