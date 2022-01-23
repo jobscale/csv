@@ -13,7 +13,7 @@ git clone https://github.com/jobscale/csv.git
 
 #### Example
 ```nodejs
-const { Csv } = require('.');
+const { csv } = require('.');
 
 const logger = console;
 const main = () => {
