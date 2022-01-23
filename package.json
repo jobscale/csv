@@ -2,19 +2,30 @@
   "name": "csv",
   "version": "1.0.0",
   "description": "csv.stringify, csv.parse",
-  "main": "csv.js",
-  "scripts": {
-    "start": "node index",
-    "lint": "eslint .",
-    "test": "npm start"
+  "keywords": [
+    "csv",
+    "parse",
+    "stringify"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jobscale/csv.git"
   },
-  "keywords": [],
-  "author": "jobscale <jobscale@jsx.jp>",
-  "license": "MIT",
-  "dependencies": {},
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint && jest --runInBand --coverage --collectCoverage"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "author": "jobscale <jobscale@users.noreply.github.com>",
   "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
-  }
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.7.0",
+    "jest": "^27.4.7"
+  },
+  "license": "MIT"
 }
