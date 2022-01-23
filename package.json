@@ -25,7 +25,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^25.7.0",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "pre-commit": "^1.2.2"
   },
   "license": "MIT"
 }
