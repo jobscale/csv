@@ -63,11 +63,11 @@ class Csv {
   }
 
   async stringify(array) {
-    return array.map(row => this.joinRow(row)).join(this.EOL);
+    return `${array.map(row => this.joinRow(row)).join(this.EOL)}${this.EOL}`;
   }
 
   joinRow(row) {
-    return row.map(x => this.escape(x)).join(',');
+    return row.map(x => this.escape(x)).join(this.delimiter);
   }
 
   escape(x) {

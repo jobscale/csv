@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/csv",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "csv.stringify, csv.parse",
   "keywords": [
     "csv",
@@ -21,6 +21,7 @@
   ],
   "author": "jobscale <jobscale@users.noreply.github.com>",
   "devDependencies": {
+    "@jobscale/core": "^0.0.13",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
