@@ -78,7 +78,7 @@ describe('test csv data2', () => {
 });
 
 describe('test csv urls1', () => {
-  const eol = '\r\n';
+  const eol = '\n';
   const customCsv = new Csv({
     eol,
   });
