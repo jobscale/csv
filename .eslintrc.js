@@ -9,6 +9,7 @@ module.exports = {
     'no-await-in-loop': 'off',
   },
   env: {
+    browser: true,
     'jest/globals': true,
   },
   plugins: [

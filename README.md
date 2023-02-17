@@ -14,6 +14,12 @@
 npm i @jobscale/csv
 ```
 
+## Testing
+
+```
+npm test
+```
+
 #### Examples
 
 csv.js
