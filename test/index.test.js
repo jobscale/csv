@@ -87,7 +87,7 @@ describe('test csv urls1', () => {
   for (const url of urls1) {
     describe('csv fetch', () => {
       it('toEqual prompt', async () => {
-        data.str = (await fetch.get(url)).data;
+        data.str = (await fetch(url)).data;
         if (data.str && data.str[data.str.length - 1] !== '\n') data.str += eol;
         expect(data.str).toEqual(expect.anything());
       });
@@ -121,7 +121,7 @@ describe('test csv urls2', () => {
   for (const url of urls2) {
     describe('csv fetch', () => {
       it('toEqual prompt', async () => {
-        data.str = (await fetch.get(url)).data;
+        data.str = (await fetch(url)).data;
         expect(data.str).toEqual(expect.anything());
       });
     });
