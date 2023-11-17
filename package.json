@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jobscale/csv.git"
+    "url": "git+git@github.com:jobscale/csv.git"
   },
   "main": "index.js",
   "scripts": {
