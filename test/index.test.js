@@ -11,10 +11,10 @@ describe('test csv data1', () => {
 
   for (const [index, data] of data1.entries()) {
     describe('csv stringify', () => {
-      it(`toMatch prompt ${index}`, async () => {
+      it(`toBe prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
-          expect(str).toMatch(data.str);
+          expect(str).toBe(data.str);
         });
       });
     });
@@ -38,10 +38,10 @@ describe('test csv data2', () => {
 
   for (const [index, data] of data2.entries()) {
     describe('csv stringify', () => {
-      it(`toMatch prompt ${index}`, async () => {
+      it(`toBe prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
-          expect(str).toMatch(data.str);
+          expect(str).toBe(data.str);
         });
       });
     });
@@ -66,10 +66,10 @@ describe('test csv data3', () => {
   for (const [key, value] of Object.entries(data3)) {
     describe(`csv stringify ${key}`, () => {
       const data = {};
-      it(`csv toMatch ${key}`, async () => {
+      it(`csv toBe ${key}`, async () => {
         data.parsed = await customCsv.parse(value);
         data.str = await customCsv.stringify(data.parsed);
-        expect(data.str).toMatch(value);
+        expect(data.str).toBe(value);
       });
 
       it(`csv toStrictEqual ${key}`, async () => {
@@ -84,10 +84,10 @@ describe('test csv data4', () => {
   for (const [key, value] of Object.entries(data4)) {
     describe(`csv stringify ${key}`, () => {
       const data = {};
-      it(`csv toMatch ${key}`, async () => {
+      it(`csv toBe ${key}`, async () => {
         data.parsed = await csv.parse(value);
         data.str = await csv.stringify(data.parsed);
-        expect(data.str).toMatch(value);
+        expect(data.str).toBe(value);
       });
 
       it(`csv toStrictEqual ${key}`, async () => {
@@ -121,10 +121,10 @@ describe('test csv urls1', () => {
     });
 
     describe('csv stringify', () => {
-      it(`toMatch prompt ${index}`, async () => {
+      it(`toBe prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
-          expect(str).toMatch(data.str);
+          expect(str).toBe(data.str);
         });
       });
     });
@@ -161,10 +161,10 @@ describe('test csv urls2', () => {
     });
 
     describe('csv stringify', () => {
-      it(`toMatch prompt ${index}`, async () => {
+      it(`toBe prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
-          expect(str).toMatch(data.str);
+          expect(str).toBe(data.str);
         });
       });
     });
