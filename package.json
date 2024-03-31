@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/csv",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "csv.stringify csv.parse @jobscale/csv",
   "keywords": [
     "csv",

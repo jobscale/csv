@@ -1,6 +1,6 @@
 const { Csv, csv } = require('..');
 const {
-  data1, data2, urls1, urls2,
+  data1, data2, data3, data4, urls1, urls2,
 } = require('./data');
 
 describe('test csv data1', () => {
@@ -9,71 +9,93 @@ describe('test csv data1', () => {
     eol: '\r\n',
   });
 
-  describe('csv stringify', () => {
-    it('toMatch prompt', async () => {
-      await customCsv.stringify(data1.obj)
-      .then(str => {
-        expect(str).toMatch(data1.str2);
-      });
-    });
-  });
-
-  describe('csv parse', () => {
-    it('toMatch prompt', async () => {
-      await customCsv.parse(data1.str1)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data1.obj }));
+  for (const [index, data] of data1.entries()) {
+    describe('csv stringify', () => {
+      it(`toMatch prompt ${index}`, async () => {
+        await customCsv.stringify(data.obj)
+        .then(str => {
+          expect(str).toMatch(data.str);
+        });
       });
     });
 
-    it('toMatch prompt', async () => {
-      await customCsv.parse(data1.str2)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data1.obj }));
+    describe('csv parse', () => {
+      it(`toStrictEqual prompt ${index}`, async () => {
+        await customCsv.parse(data.str)
+        .then(obj => {
+          expect(obj).toStrictEqual(data.obj);
+        });
       });
     });
-
-    it('toMatch prompt', async () => {
-      await customCsv.parse(data1.str3)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data1.obj }));
-      });
-    });
-  });
+  }
 });
 
 describe('test csv data2', () => {
-  describe('csv stringify', () => {
-    it('toMatch prompt', async () => {
-      await csv.stringify(data2.obj)
-      .then(str => {
-        expect(str).toMatch(data2.str2);
-      });
-    });
+  const customCsv = new Csv({
+    delimiter: ',',
+    eol: '\n',
   });
 
-  describe('csv parse', () => {
-    it('toMatch prompt', async () => {
-      await csv.parse(data2.str1)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data2.obj }));
+  for (const [index, data] of data2.entries()) {
+    describe('csv stringify', () => {
+      it(`toMatch prompt ${index}`, async () => {
+        await customCsv.stringify(data.obj)
+        .then(str => {
+          expect(str).toMatch(data.str);
+        });
       });
     });
 
-    it('toMatch prompt', async () => {
-      await csv.parse(data2.str2)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data2.obj }));
+    describe('csv parse', () => {
+      it(`toStrictEqual prompt ${index}`, async () => {
+        await customCsv.parse(data.str)
+        .then(obj => {
+          expect(obj).toStrictEqual(data.obj);
+        });
       });
     });
+  }
+});
 
-    it('toMatch prompt', async () => {
-      await csv.parse(data2.str3)
-      .then(obj => {
-        expect(JSON.stringify({ obj })).toMatch(JSON.stringify({ obj: data2.obj }));
-      });
-    });
+describe('test csv data3', () => {
+  const customCsv = new Csv({
+    delimiter: ',',
+    eol: '\r\n',
   });
+
+  for (const [key, value] of Object.entries(data3)) {
+    describe(`csv stringify ${key}`, () => {
+      const data = {};
+      it(`csv toMatch ${key}`, async () => {
+        data.parsed = await customCsv.parse(value);
+        data.str = await customCsv.stringify(data.parsed);
+        expect(data.str).toMatch(value);
+      });
+
+      it(`csv toStrictEqual ${key}`, async () => {
+        const obj = await customCsv.parse(data.str);
+        expect(obj).toStrictEqual(data.parsed);
+      });
+    });
+  }
+});
+
+describe('test csv data4', () => {
+  for (const [key, value] of Object.entries(data4)) {
+    describe(`csv stringify ${key}`, () => {
+      const data = {};
+      it(`csv toMatch ${key}`, async () => {
+        data.parsed = await csv.parse(value);
+        data.str = await csv.stringify(data.parsed);
+        expect(data.str).toMatch(value);
+      });
+
+      it(`csv toStrictEqual ${key}`, async () => {
+        const obj = await csv.parse(data.str);
+        expect(obj).toStrictEqual(data.parsed);
+      });
+    });
+  }
 });
 
 describe('test csv urls1', () => {
@@ -82,10 +104,9 @@ describe('test csv urls1', () => {
     eol,
   });
   const data = {};
-  // eslint-disable-next-line no-restricted-syntax
-  for (const url of urls1) {
+  for (const [index, url] of urls1.entries()) {
     describe('csv fetch', () => {
-      it('toEqual prompt', async () => {
+      it(`toEqual prompt ${index}`, async () => {
         data.str = await fetch(url).then(res => res.text());
         if (data.str && data.str[data.str.length - 1] !== '\n') data.str += eol;
         expect(data.str).toEqual(expect.anything());
@@ -93,18 +114,25 @@ describe('test csv urls1', () => {
     });
 
     describe('csv parse', () => {
-      it('toEqual prompt', async () => {
+      it(`toEqual prompt ${index}`, async () => {
         data.obj = await csv.parse(data.str);
         expect(data.obj).toEqual(expect.anything());
       });
     });
 
     describe('csv stringify', () => {
-      it('toMatch prompt', async () => {
+      it(`toMatch prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
           expect(str).toMatch(data.str);
         });
+      });
+    });
+
+    describe('check match', () => {
+      it(`toEqual prompt ${index}`, async () => {
+        const obj = await csv.parse(data.str);
+        expect(obj).toStrictEqual(data.obj);
       });
     });
   }
@@ -116,28 +144,35 @@ describe('test csv urls2', () => {
     eol,
   });
   const data = {};
-  // eslint-disable-next-line no-restricted-syntax
-  for (const url of urls2) {
+  for (const [index, url] of urls2.entries()) {
     describe('csv fetch', () => {
-      it('toEqual prompt', async () => {
+      it(`toEqual prompt ${index}`, async () => {
         data.str = await fetch(url).then(res => res.text());
+        if (data.str && data.str[data.str.length - 1] !== '\n') data.str += eol;
         expect(data.str).toEqual(expect.anything());
       });
     });
 
     describe('csv parse', () => {
-      it('toEqual prompt', async () => {
+      it(`toEqual prompt ${index}`, async () => {
         data.obj = await csv.parse(data.str);
         expect(data.obj).toEqual(expect.anything());
       });
     });
 
     describe('csv stringify', () => {
-      it('toMatch prompt', async () => {
+      it(`toMatch prompt ${index}`, async () => {
         await customCsv.stringify(data.obj)
         .then(str => {
           expect(str).toMatch(data.str);
         });
+      });
+    });
+
+    describe('check match', () => {
+      it(`toEqual prompt ${index}`, async () => {
+        const obj = await csv.parse(data.str);
+        expect(obj).toStrictEqual(data.obj);
       });
     });
   }

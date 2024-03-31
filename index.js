@@ -3,6 +3,10 @@
     constructor(options) {
       this.csv = this;
       this.Csv = Csv;
+      this.config(options);
+    }
+
+    config(options) {
       this.delimiter = options && options.delimiter ? options.delimiter : ',';
       this.EOL = options && options.eol ? options.eol : '\n';
     }
@@ -80,6 +84,7 @@
     }
   }
 
-  if (typeof module !== 'undefined') module.exports = new Csv();
-  if (typeof window !== 'undefined') window.logger = new Csv();
+  const csv = new Csv();
+  if (typeof module !== 'undefined') module.exports = csv;
+  if (typeof window !== 'undefined') window.csv = csv;
 })();
