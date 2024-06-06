@@ -79,8 +79,10 @@
 
     escape(x) {
       const isEsc = () => x.match(/"/) || x.match(/,/) || x.match(/\n/) || x.match(/\r/);
-      return typeof x === 'number' ? x
-        : (() => isEsc() ? `"${x.replace(/"/g, '""')}"` : x)();
+      if (typeof x === 'number') return x;
+      if (typeof x === 'boolean') return x;
+      if (typeof x === 'undefined') return x;
+      return isEsc() ? `"${x.replace(/"/g, '""')}"` : x;
     }
   }
 
