@@ -20,12 +20,12 @@ npm i @jobscale/csv
 npm test
 ```
 
-#### Examples
+#### Browser Examples
 
 csv.js
 
 ```javascript
-const { csv } = require('@jobscale/csv');
+import { csv } from 'https://esm.sh/@jobscale/csv';
 
 const logger = console;
 const main = () => {
@@ -37,8 +37,19 @@ const main = () => {
 main();
 ```
 
-### Run
+#### Nodejs [ 20.x, 22.x, 24.x ] Examples
 
-```bash
-node csv
+csv.js
+
+```javascript
+import { csv } from '@jobscale/csv';
+
+const logger = console;
+const main = () => {
+  csv.stringify([['a', 1, 2, 3, 4]])
+  .then(logger.info);
+  csv.parse('a,1,2,3,4')
+  .then(logger.info);
+};
+main();
 ```
