@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   data1: [{
     obj: [
       ['', 'a', 1, 2, 3, 4],

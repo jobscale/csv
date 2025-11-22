@@ -1,7 +1,9 @@
-const { Csv, csv } = require('..');
+import { Csv, csv } from '../index.js';
+import testTata from './data.js';
+
 const {
   data1, data2, data3, data4, urls1, urls2,
-} = require('./data');
+} = testTata;
 
 describe('test csv data1', () => {
   const customCsv = new Csv({
