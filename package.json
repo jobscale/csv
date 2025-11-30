@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/csv",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "csv.stringify csv.parse @jobscale/csv",
   "keywords": [
     "csv",
@@ -16,15 +16,16 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "pretest": "date -Iseconds",
     "lint": "eslint",
-    "test": "date -Iseconds && node --experimental-vm-modules node_modules/.bin/jest --detectOpenHandles --runInBand --coverage --collectCoverage"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --coverage --collectCoverage"
   },
   "pre-commit": [
     "lint",
     "test"
   ],
   "devDependencies": {
-    "@jobscale/eslint-plugin-standard": "^0.0.4",
+    "@jobscale/eslint-plugin-standard": "^0.0.8",
     "eslint": "^9.39.1",
     "eslint-plugin-jest": "^29.2.1",
     "jest": "^30.2.0",
